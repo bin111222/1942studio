@@ -13,35 +13,23 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
+        use: ['babel-loader']
       },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader', 'postcss-loader']
-      },
-      {
-        test: /\.(png|jpg|jpeg|gif|svg)$/i,
-        type: 'asset/resource',
       }
-    ],
+    ]
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx']
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html',
-    }),
+      template: './public/index.html'
+    })
   ],
   devServer: {
-    static: {
-      directory: path.join(__dirname, 'public'),
-    },
-    port: 3001,
-    hot: true,
-    historyApiFallback: true,
-    open: true
-  },
-  resolve: {
-    extensions: ['.js', '.jsx']
+    historyApiFallback: true
   }
 }; 
