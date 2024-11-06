@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useNavigate } from 'react-router-dom';
 import {
   CpuChipIcon,
   ChartBarIcon,
@@ -111,6 +112,8 @@ function ServiceCard({ title, description, icon: Icon, delay = 0 }) {
 }
 
 function ServicesBento() {
+  const navigate = useNavigate();
+
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -163,6 +166,7 @@ function ServicesBento() {
               boxShadow: "0 0 30px rgba(45,108,223,0.3)"
             }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => navigate('/services')}
             className="px-8 py-4 rounded-xl bg-gradient-to-r from-accent-blue to-accent-purple text-white font-medium text-lg shadow-lg"
           >
             View All Services

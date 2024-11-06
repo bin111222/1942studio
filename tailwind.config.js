@@ -4,26 +4,30 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
     "./public/index.html",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        dark: {
-          100: '#000000',
-          200: '#111111',
-          300: '#1a1a1a',
+        'dark': {
+          100: '#0A0A0B',
+          200: '#16171B',
+          300: '#1E1F24',
         },
-        'accent-blue': '#2D6CDF',
-        'accent-purple': '#8B5CF6',
-        'accent-gold': '#DCA546',
-        'glass-dark': 'rgba(17, 17, 17, 0.7)',
-        'glass-light': 'rgba(255, 255, 255, 0.1)',
+        'accent': {
+          blue: '#2D6CDF',
+          purple: '#6366F1',
+          gold: '#F59E0B',
+        },
+        'glass': {
+          dark: 'rgba(0, 0, 0, 0.3)',
+        }
       },
       boxShadow: {
-        'premium': '0 0 30px rgba(45, 108, 223, 0.1)',
-        'premium-hover': '0 0 40px rgba(45, 108, 223, 0.2)',
+        'premium': '0 0 30px rgba(45, 108, 223, 0.05)',
+        'premium-hover': '0 0 40px rgba(45, 108, 223, 0.1)',
       },
       backgroundImage: {
-        'gradient-premium': 'linear-gradient(to right, #2D6CDF, #8B5CF6)',
+        'gradient-premium': 'linear-gradient(to right, var(--tw-gradient-stops))',
       },
     },
   },

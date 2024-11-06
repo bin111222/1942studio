@@ -141,21 +141,9 @@ function ContactForm() {
 }
 
 function Contact() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   return (
-    <div className="relative min-h-screen">
-      {/* Background with seamless gradient */}
-      <div className="fixed inset-0 bg-dark-100">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(45,108,223,0.1)_0%,transparent_50%)]" />
-      </div>
-
-      {/* Content */}
-      <div className="relative">
-        {/* Hero Section */}
+    <div className="flex flex-col min-h-screen bg-dark-100">
+      <div className="flex-grow relative">
         <section className="relative py-32 overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
@@ -182,7 +170,6 @@ function Contact() {
           </div>
         </section>
 
-        {/* Contact Methods Grid */}
         <section className="py-12 relative">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
@@ -211,7 +198,6 @@ function Contact() {
               ))}
             </div>
 
-            {/* Contact Form */}
             <div className="max-w-3xl mx-auto">
               <div className="bg-dark-200/30 backdrop-blur-sm rounded-2xl border border-white/5 p-8 md:p-12">
                 <ContactForm />

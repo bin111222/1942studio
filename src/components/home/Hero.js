@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useScroll, useTransform } from 'framer-motion';
 import { useQuiz } from '../../context/QuizContext';
+import { useNavigate } from 'react-router-dom';
 
 // Define premium gradients
 const gradients = [
@@ -37,6 +38,7 @@ function Hero() {
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 200], [1, 0]);
   const { openQuiz } = useQuiz();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -175,21 +177,25 @@ function Hero() {
 
             <div className="flex flex-wrap gap-6 justify-center">
               <motion.button
-                whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(45,108,223,0.3)" }}
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 0 30px rgba(45,108,223,0.3)"
+                }}
                 whileTap={{ scale: 0.95 }}
                 onClick={openQuiz}
-                className="btn-premium relative overflow-hidden group"
+                className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl text-white font-medium text-lg shadow-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300"
               >
-                <span className="relative z-10">Start Your AI Journey</span>
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-r from-accent-purple to-accent-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
+                Start Your AI Journey
               </motion.button>
               
               <motion.button
-                whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.1)" }}
+                whileHover={{ 
+                  scale: 1.05,
+                  backgroundColor: "rgba(45,108,223,0.1)"
+                }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border border-glass-light backdrop-blur-sm text-gray-300 font-semibold rounded-xl transition-all duration-300"
+                onClick={() => navigate('/portfolio')}
+                className="px-8 py-4 border border-blue-500/30 text-blue-400 font-medium text-lg rounded-xl backdrop-blur-sm hover:bg-blue-500/10 transition-all duration-300"
               >
                 View Case Studies
               </motion.button>

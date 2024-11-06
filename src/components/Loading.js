@@ -1,23 +1,25 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-function Loading() {
+const Loading = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen bg-black flex items-center justify-center">
       <motion.div
         animate={{
           scale: [1, 1.2, 1],
-          rotate: [0, 180, 360],
+          opacity: [0.5, 1, 0.5]
         }}
         transition={{
-          duration: 2,
+          duration: 1.5,
           repeat: Infinity,
-          ease: "linear"
+          ease: "easeInOut"
         }}
-        className="w-16 h-16 border-4 border-primary-500 rounded-full border-t-transparent"
-      />
+        className="text-blue-500 text-2xl font-bold"
+      >
+        Loading...
+      </motion.div>
     </div>
   );
-}
+};
 
 export default Loading; 

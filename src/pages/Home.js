@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import Hero from '../components/home/Hero';
 import Stats from '../components/home/Stats';
@@ -8,68 +8,81 @@ import CaseStudies from '../components/home/CaseStudies';
 
 function Home() {
   const [heroRef, heroInView] = useInView({
-    threshold: 0.2,
-    triggerOnce: false
+    threshold: 0.1,
+    triggerOnce: true
   });
 
   const [statsRef, statsInView] = useInView({
-    threshold: 0.2,
-    triggerOnce: false
+    threshold: 0.1,
+    triggerOnce: true
   });
 
   const [servicesRef, servicesInView] = useInView({
-    threshold: 0.2,
-    triggerOnce: false
+    threshold: 0.1,
+    triggerOnce: true
   });
 
   const [caseStudiesRef, caseStudiesInView] = useInView({
-    threshold: 0.2,
-    triggerOnce: false
+    threshold: 0.1,
+    triggerOnce: true
   });
 
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 2.5,
+        ease: [0.22, 1, 0.36, 1],
+        staggerChildren: 0.2
+      }
+    },
+    exit: { 
+      opacity: 0,
+      y: -20,
+      transition: {
+        duration: 3.0,
+        ease: [0.22, 1, 0.36, 1]
+      }
+    }
+  };
+
   return (
-    <div className="relative min-h-screen bg-black">
-      {/* Fixed Background */}
-      <div className="fixed inset-0 bg-black" />
-      
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Hero Section */}
+    <div className="flex flex-col min-h-screen bg-black">
+      <div className="flex-grow">
         <motion.div
           ref={heroRef}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: heroInView ? 1 : 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          variants={fadeInUp}
+          initial="hidden"
+          animate={heroInView ? "visible" : "hidden"}
         >
           <Hero />
         </motion.div>
 
-        {/* Stats Section */}
         <motion.div
           ref={statsRef}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: statsInView ? 1 : 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          variants={fadeInUp}
+          initial="hidden"
+          animate={statsInView ? "visible" : "hidden"}
         >
           <Stats />
         </motion.div>
 
-        {/* Services Section */}
         <motion.div
           ref={servicesRef}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: servicesInView ? 1 : 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          variants={fadeInUp}
+          initial="hidden"
+          animate={servicesInView ? "visible" : "hidden"}
         >
           <ServicesBento />
         </motion.div>
 
-        {/* Case Studies Section */}
         <motion.div
           ref={caseStudiesRef}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: caseStudiesInView ? 1 : 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          variants={fadeInUp}
+          initial="hidden"
+          animate={caseStudiesInView ? "visible" : "hidden"}
         >
           <CaseStudies />
         </motion.div>

@@ -3,64 +3,37 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[contenthash].js',
-    publicPath: '/',
-    clean: true,
-    assetModuleFilename: 'assets/[hash][ext][query]'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          }
-        }
+        use: ['babel-loader']
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader'
-        ]
+        use: ['style-loader', 'css-loader', 'postcss-loader']
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif|ico|webp)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif|ico|webp)$/,
         type: 'asset/resource'
       }
     ]
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-      '@assets': path.resolve(__dirname, 'src/assets')
-    }
+    extensions: ['.js', '.jsx']
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
-      filename: 'index.html',
-      inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true,
-      }
+      filename: 'index.html'
     }),
     new CopyPlugin({
       patterns: [
@@ -77,9 +50,14 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     hot: true,
-    open: true
-  },
-  performance: {
-    hints: false
+    port: 3000,
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
+    }
   }
 }; 

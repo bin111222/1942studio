@@ -1,1 +1,13 @@
- 
+/* Find your header/navbar component styles and remove or modify these properties */
+header {
+  /* ... existing code ... */
+  border-bottom: none;  /* Remove if present */
+  box-shadow: none;     /* Remove if present */
+}
+
+/* If you're using a nav element inside header */
+nav {
+  /* ... existing code ... */
+  border-bottom: none;
+  box-shadow: none;
+} 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useNavigate } from 'react-router-dom';
 
 const caseStudies = [
   {
@@ -105,6 +106,8 @@ function CaseStudyCard({ study, index }) {
 }
 
 function CaseStudies() {
+  const navigate = useNavigate();
+
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -156,6 +159,7 @@ function CaseStudies() {
               boxShadow: "0 0 30px rgba(45,108,223,0.3)"
             }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => navigate('/portfolio')}
             className="px-8 py-4 rounded-xl bg-gradient-to-r from-accent-blue to-accent-purple text-white font-medium text-lg shadow-lg"
           >
             View All Case Studies

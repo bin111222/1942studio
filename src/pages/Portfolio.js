@@ -136,21 +136,11 @@ function PortfolioCard({ project, index }) {
 }
 
 function Portfolio() {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   return (
-    <div className="relative min-h-screen">
-      {/* Background with seamless gradient */}
-      <div className="fixed inset-0 bg-dark-100">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(45,108,223,0.1)_0%,transparent_50%)]" />
-      </div>
-
-      {/* Content */}
+    <div className="min-h-screen bg-dark-100">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(45,108,223,0.1)_0%,transparent_50%)]" />
+      
       <div className="relative">
-        {/* Hero Section */}
         <section className="relative py-32 overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
@@ -177,8 +167,7 @@ function Portfolio() {
           </div>
         </section>
 
-        {/* Projects Grid */}
-        <section className="py-24 relative" ref={ref}>
+        <section className="py-24 relative">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {projects.map((project, index) => (
