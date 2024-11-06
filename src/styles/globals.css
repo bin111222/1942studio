@@ -6,11 +6,27 @@
 
 :root {
   color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+/* Add this to ensure dark background */
+html {
+  background-color: #000000;
 }
 
 body {
-  @apply bg-gray-900 text-gray-100;
+  @apply bg-black text-gray-100;
+  min-height: 100vh;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
+  scroll-behavior: smooth;
+}
+
+/* Make sure the root div takes full height */
+#root {
+  min-height: 100vh;
+  background-color: #000000;
 }
 
 @layer components {
@@ -33,6 +49,7 @@ body {
   .bento-grid {
     @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
   }
+  
   .perspective-1000 {
     perspective: 1000px;
   }
@@ -43,7 +60,6 @@ body {
     transform-style: preserve-3d;
   }
 
-  /* Dark mode text styles */
   .text-primary {
     @apply text-primary-400;
   }
@@ -52,45 +68,36 @@ body {
     @apply text-gray-400;
   }
 
-  /* Dark mode input styles */
   input, textarea {
     @apply bg-dark-200 border-dark-300 text-gray-100;
   }
 
-  /* Dark mode button styles */
   button {
     @apply hover:bg-dark-300;
   }
 }
 
-/* Custom scrollbar for dark mode */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
   @apply bg-dark-100;
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-dark-300 rounded-full;
+  background: linear-gradient(to bottom, #2D6CDF, #8B5CF6);
+  border-radius: 4px;
 }
-
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-dark-400;
-}
-
-/* Add to your existing globals.css */
 
 .snap-x {
   -ms-overflow-style: none;
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-}
-
-.snap-x::-webkit-scrollbar {
-  display: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-padding: 1rem;
 }
 
 .snap-center {
@@ -99,23 +106,97 @@ body {
 }
 
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari and Opera */
+  display: none;
 }
 
-/* Smooth scrolling for the whole page */
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* For Safari */
+html, body {
+  scroll-snap-type: y proximity;
+  scroll-padding-top: 80px;
+}
+
+section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: opacity 1000ms ease-in-out;
+}
+
+.smooth-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+.scroll-container {
+  scroll-snap-type: y mandatory;
+  scroll-padding: 1rem;
+  overscroll-behavior: contain;
+}
+
+.scroll-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
 @supports (-webkit-overflow-scrolling: touch) {
   .snap-x {
     -webkit-overflow-scrolling: touch;
   }
-} 
+}
+
+.glass-premium {
+  @apply backdrop-blur-xl bg-glass-dark border border-white/5;
+  box-shadow: 0 0 30px rgba(45, 108, 223, 0.05);
+}
+
+.text-gradient-premium {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-accent-blue via-accent-purple to-accent-gold;
+}
+
+.btn-premium {
+  @apply px-6 py-3 rounded-lg bg-gradient-premium text-white font-medium
+         transform transition-all duration-300 hover:scale-105
+         hover:shadow-premium-hover focus:ring-2 focus:ring-accent-blue/50;
+}
+
+.card-premium {
+  @apply bg-dark-200 rounded-xl p-6 border border-white/5
+         transform transition-all duration-300
+         hover:shadow-premium hover:-translate-y-1;
+}
+
+.section-premium {
+  @apply py-24 px-4 sm:px-6 lg:px-8;
+}
+
+@keyframes pattern-slide {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 250px 250px;
+  }
+}
+
+.animate-pattern-slide {
+  animation: pattern-slide 20s linear infinite;
+}
+
+.transition-all {
+  transition-duration: 1000ms !important;
+  transition-timing-function: ease-in-out !important;
+}
