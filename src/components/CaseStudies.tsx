@@ -393,7 +393,7 @@ function CaseStudyCard({
                 <motion.a
                   whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(45,108,223,0.3)" }}
                   whileTap={{ scale: 0.95 }}
-                  className="group relative inline-flex items-center justify-center px-8 py-4 font-light text-white transition-all duration-300 ease-in-out bg-gradient-to-r from-blue-400 to-violet-400 rounded-full hover:from-blue-500 hover:to-violet-500 shadow-md hover:shadow-lg hover:-translate-y-0.5"
+                  className="inline-block px-8 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium text-lg shadow-lg transition-transform duration-200"
                   aria-label="View all case studies"
                 >
                   View All Case Studies

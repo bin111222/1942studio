@@ -121,7 +121,7 @@ export const Hero = () => {
     }}
     whileTap={{ scale: 0.95 }}
     onClick={handleQuizClick}
-    className="group relative inline-flex items-center justify-center px-8 py-4 font-light text-white transition-all duration-300 ease-in-out bg-gradient-to-r from-blue-400 to-violet-400 rounded-full hover:from-blue-500 hover:to-violet-500 shadow-md hover:shadow-lg hover:-translate-y-0.5"
+    className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl text-white font-medium text-lg shadow-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-300"
   >
     Start Your AI Journey
   </motion.button>
@@ -133,7 +133,7 @@ export const Hero = () => {
                     backgroundColor: "rgba(45,108,223,0.1)"
                   }}
                   whileTap={{ scale: 0.95 }}
-                  className="group relative inline-flex items-center justify-center px-8 py-4 font-light text-blue-400 transition-all duration-300 ease-in-out bg-white/80 border-2 border-blue-300/20 rounded-full hover:bg-blue-50/50 hover:border-blue-400/30 shadow-md hover:shadow-lg hover:-translate-y-0.5"
+                  className="px-8 py-4 border border-blue-500/30 text-blue-400 font-medium text-lg rounded-xl backdrop-blur-sm hover:bg-blue-500/10 transition-all duration-300"
                 >
                   View Case Studies
                 </motion.button>

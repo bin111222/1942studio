@@ -209,7 +209,7 @@ export default function About() {
               }}
               whileTap={{ scale: 0.95 }}
               onClick={handleQuizClick}
-              className="group relative inline-flex items-center justify-center px-8 py-4 font-light text-white transition-all duration-300 ease-in-out bg-gradient-to-r from-blue-400 to-violet-400 rounded-full hover:from-blue-500 hover:to-violet-500 shadow-md hover:shadow-lg hover:-translate-y-0.5"
+              className="px-6 py-3 md:px-8 md:py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium text-base md:text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-2"
             >
               <span>Get Started with AI</span>
               <svg 
