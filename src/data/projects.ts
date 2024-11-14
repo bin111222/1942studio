@@ -147,16 +147,29 @@ export const projects: Project[] = [
     ],
     process: [
       {
-        phase: "Research",
-        duration: "1 week",
-        description: "Comprehensive clinic workflow analysis and requirements and information gathering",
-        deliverables: ["Requirement Analysis", "Technical Roadmap"]
+        phase: "Discovery",
+        description: "Extensive research on the business niche and topics that resonate with the target audience",
+        duration: "1 week"
+      },
+      {
+        phase: "Design",
+        description: "UI/UX design with focus on ease to use and intuitive navigation",
+        duration: "2 weeks"
       },
       {
         phase: "Development",
-        duration: "4 weeks",
-        description: "Platform development with focus on user experience",
-        deliverables: ["Core Platform", "Mobile Friendly", "Pre-consultation tests"]
+        description: "Agile development with continuous integration",
+        duration: "2 weeks"
+      },
+      {
+        phase: "Testing",
+        description: "Rigorous security and compliance testing",
+        duration: "2 weeks"
+      },
+      {
+        phase: "Deployment",
+        description: "Phased rollout with monitoring",
+        duration: "1 week"
       }
     ],
     comingSoon: false
