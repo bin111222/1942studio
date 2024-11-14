@@ -95,6 +95,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         className="fixed inset-0"
         style={{ zIndex: Z_INDICES.MODAL }}
         onClick={handleBackdropClick}
+        data-modal-backdrop
       >
         <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
         

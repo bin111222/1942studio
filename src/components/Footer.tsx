@@ -1,12 +1,33 @@
 // src/components/Footer.tsx
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { EnvelopeIcon, PhoneIcon, MapPinIcon } from '@heroicons/react/24/outline';
 
 export const Footer = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    // Check if modal is open by looking for the modal's backdrop
+    const checkModal = () => {
+      const modalBackdrop = document.querySelector('[data-modal-backdrop]');
+      setIsModalOpen(!!modalBackdrop);
+    };
+
+    // Initial check
+    checkModal();
+
+    // Create observer to watch for modal changes
+    const observer = new MutationObserver(checkModal);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
+  }, []);
+
+  if (isModalOpen) return null;
+
   return (
     <footer className="relative z-10">
       <div 
