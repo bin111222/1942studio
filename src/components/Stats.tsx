@@ -94,10 +94,10 @@ export function Stats() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="inline-block px-6 py-3 rounded-full text-lg font-semibold bg-blue-500/10 text-blue-500 border border-blue-500/20 mb-8"
           >
-            Our Impact
+            The 1942 Studio Impact
           </motion.span>
           <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 leading-tight lg:leading-snug py-1">
-            Driving Real Results
+            Driving Results
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
             Transforming businesses through innovative AI solutions and delivering measurable outcomes

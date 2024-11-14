@@ -358,7 +358,7 @@ function CaseStudyCard({
                 Featured Case Studies
               </motion.span>
               <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
-                Our Success Stories
+              Client Success Stories
               </h2>
               <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
                 Discover how we've helped businesses transform with AI-driven solutions.

@@ -32,7 +32,7 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-6xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mb-8 leading-tight pb-2"
           >
-            Get in Touch
+            Connect with 1942 Studio
           </motion.h1>
           
           <motion.p 

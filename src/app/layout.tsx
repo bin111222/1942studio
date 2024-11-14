@@ -7,6 +7,7 @@ import type { Metadata } from 'next'
 import ClientLayout from '@/components/ClientLayout'
 import { Background } from '@/components/Background'
 import { Inter } from 'next/font/google'
+import CustomCursor from '@/components/CustomCursor'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -75,6 +76,7 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={inter.className}>
+        <CustomCursor />
         <QuizProvider>
           <ClientLayout>
             <Background>

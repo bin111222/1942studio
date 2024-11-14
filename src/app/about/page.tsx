@@ -185,7 +185,7 @@ export default function About() {
             {...fadeInAnimation}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 mb-6 md:mb-8 leading-tight md:leading-tight lg:leading-tight pb-1"
           >
-            <span className="block mb-2 md:mb-0 md:inline">Pioneering</span>{' '}
+            <span className="block mb-2 md:mb-0 md:inline">Pioneers in</span>{' '}
             <span className="block md:inline">AI Solutions</span>
           </motion.h1>
           
@@ -238,7 +238,7 @@ export default function About() {
             {...fadeInAnimation}
             className="text-2xl md:text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500 mb-4 md:mb-6 leading-tight"
           >
-            Our Guiding Principles
+            Our Values: Our Guiding Principles
           </motion.h2>
           
           <motion.p 
@@ -277,7 +277,7 @@ export default function About() {
             {...fadeInAnimation}
             className="text-2xl md:text-3xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500 mb-4 md:mb-6 leading-tight"
           >
-            Meet Our Team
+            Meet Our AI Team
           </motion.h2>
           
           <motion.p 

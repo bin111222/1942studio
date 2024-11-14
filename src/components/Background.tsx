@@ -1,118 +1,175 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
-const backgroundElements = [
-  { icon: '⚡', size: 'text-2xl' },
-  { icon: '🤖', size: 'text-2xl' },
-  { icon: '🧠', size: 'text-2xl' },
-  { icon: '💡', size: 'text-2xl' },
-  { icon: '🔮', size: 'text-2xl' },
-  { icon: '⚙️', size: 'text-2xl' },
-];
+const GRID_SIZE = 20;
+const PARTICLE_COUNT = 50;
 
-const createScatteredPositions = (count: number) => {
-  const positions = [];
-  const gridSize = Math.ceil(Math.sqrt(count));
-  
-  for (let i = 0; i < count; i++) {
-    const gridX = (i % gridSize) / gridSize;
-    const gridY = Math.floor(i / gridSize) / gridSize;
-    
-    const randomOffset = 0.15;
-    const x = (gridX * 100) + (Math.random() * randomOffset * 100 - randomOffset * 50);
-    const y = (gridY * 100) + (Math.random() * randomOffset * 100 - randomOffset * 50);
-    
-    positions.push({
-      x: Math.max(5, Math.min(95, x)),
-      y: Math.max(5, Math.min(95, y)),
-    });
-  }
-  
-  return positions;
-};
-
-const fixedPositions = createScatteredPositions(15);
+interface Particle {
+  x: number;
+  y: number;
+  angle: number;
+  speed: number;
+  size: number;
+}
 
 export const Background = ({ children }: { children: React.ReactNode }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const springConfig = { damping: 50, stiffness: 100 };
-  const mouseXSpring = useSpring(useMotionValue(0), springConfig);
-  const mouseYSpring = useSpring(useMotionValue(0), springConfig);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const particles = useRef<Particle[]>([]);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springConfig = { damping: 25, stiffness: 150 };
+  const mouseXSpring = useSpring(mouseX, springConfig);
+  const mouseYSpring = useSpring(mouseY, springConfig);
 
+  // Initialize particles
+  useEffect(() => {
+    particles.current = Array.from({ length: PARTICLE_COUNT }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      angle: Math.random() * Math.PI * 2,
+      speed: 0.5 + Math.random() * 0.5,
+      size: 1 + Math.random() * 2,
+    }));
+  }, []);
+
+  // Handle mouse movement
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-      const x = clientX / innerWidth;
-      const y = clientY / innerHeight;
-      setMousePosition({ x, y });
-      mouseXSpring.set(x * 20);
-      mouseYSpring.set(y * 20);
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
-
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseXSpring, mouseYSpring]);
+  }, [mouseX, mouseY]);
+
+  // Animation loop
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Set canvas size
+    const setCanvasSize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    setCanvasSize();
+    window.addEventListener('resize', setCanvasSize);
+
+    // Draw mathematical grid
+    const drawGrid = () => {
+      ctx.strokeStyle = 'rgba(99, 102, 241, 0.1)';
+      ctx.lineWidth = 1;
+
+      // Draw Cartesian grid
+      for (let i = 0; i < canvas.width; i += GRID_SIZE) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, canvas.height);
+        ctx.stroke();
+      }
+      for (let i = 0; i < canvas.height; i += GRID_SIZE) {
+        ctx.beginPath();
+        ctx.moveTo(0, i);
+        ctx.lineTo(canvas.width, i);
+        ctx.stroke();
+      }
+    };
+
+    // Draw mathematical curves
+    const drawCurves = (time: number) => {
+      ctx.strokeStyle = 'rgba(99, 102, 241, 0.2)';
+      ctx.beginPath();
+      for (let x = 0; x < canvas.width; x += 5) {
+        // Parametric equations for animated curves
+        const y = Math.sin(x / 50 + time / 1000) * 50 + canvas.height / 2;
+        if (x === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+    };
+
+    // Update and draw particles
+    const updateParticles = () => {
+      particles.current.forEach(particle => {
+        particle.x += Math.cos(particle.angle) * particle.speed;
+        particle.y += Math.sin(particle.angle) * particle.speed;
+
+        // Wrap around screen
+        if (particle.x < 0) particle.x = canvas.width;
+        if (particle.x > canvas.width) particle.x = 0;
+        if (particle.y < 0) particle.y = canvas.height;
+        if (particle.y > canvas.height) particle.y = 0;
+
+        // Draw particle
+        ctx.fillStyle = 'rgba(99, 102, 241, 0.5)';
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    };
+
+    // Animation loop
+    let animationFrame: number;
+    const animate = (time: number) => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw background gradient
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, 'rgba(239, 246, 255, 0.8)'); // blue-50
+      gradient.addColorStop(1, 'rgba(243, 232, 255, 0.8)'); // purple-50
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      drawGrid();
+      drawCurves(time);
+      updateParticles();
+
+      // Draw mathematical symbols at random positions
+      const symbols = ['∑', '∫', '∞', 'π', '√', 'Δ', '∇'];
+      ctx.font = '20px serif';
+      ctx.fillStyle = 'rgba(99, 102, 241, 0.1)';
+      symbols.forEach((symbol, i) => {
+        const x = (Math.sin(time / 2000 + i) + 1) * canvas.width / 2;
+        const y = (Math.cos(time / 2000 + i) + 1) * canvas.height / 2;
+        ctx.fillText(symbol, x, y);
+      });
+
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+      window.removeEventListener('resize', setCanvasSize);
+    };
+  }, []);
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `
-              linear-gradient(to right, rgba(99, 102, 241, 0.05) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(99, 102, 241, 0.05) 1px, transparent 1px)
-            `,
-            backgroundSize: '4rem 4rem',
-          }} />
-        </div>
-
-        {fixedPositions.map((position, i) => (
-          <motion.div
-            key={i}
-            className={`absolute ${backgroundElements[i % backgroundElements.length].size} opacity-30`}
-            style={{
-              left: `${position.x}%`,
-              top: `${position.y}%`,
-              x: mouseXSpring,
-              y: mouseYSpring,
-            }}
-            animate={{
-              scale: [0.95, 1.05, 0.95],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "linear",
-              delay: i * 0.2,
-            }}
-          >
-            {backgroundElements[i % backgroundElements.length].icon}
-          </motion.div>
-        ))}
-
-        {[...Array(3)].map((_, i) => (
-          <motion.div
-            key={`orb-${i}`}
-            className="absolute rounded-full opacity-20"
-            style={{
-              background: `radial-gradient(circle, rgba(45,108,223,0.08) 0%, transparent 70%)`,
-              width: `${600 + i * 200}px`,
-              height: `${600 + i * 200}px`,
-              left: `${20 + i * 30}%`,
-              top: `${10 + i * 30}%`,
-              x: mouseXSpring,
-              y: mouseYSpring,
-            }}
-            transition={{ type: "spring", damping: 30, stiffness: 50 }}
-          />
-        ))}
-      </div>
-
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 z-0"
+        style={{ opacity: 0.8 }}
+      />
+      <motion.div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(99, 102, 241, 0.1) 0%, transparent 50%)',
+          '--mouse-x': mouseXSpring,
+          '--mouse-y': mouseYSpring,
+        } as any}
+      />
       <div className="relative z-10">
         {children}
       </div>
     </div>
   );
-};
+}; 

@@ -113,7 +113,7 @@ export const Services = () => {
               Featured Services
             </motion.span>
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 leading-tight lg:leading-snug py-1">
-              AI Solutions for Every Need
+            Transform Your Business with AI
             </h2>
             <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto">
               Discover how our AI services can transform your business
