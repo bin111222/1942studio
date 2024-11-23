@@ -119,13 +119,27 @@ export const projects: Project[] = [
     solutions: [
       {
         title: "Digital Infrastructure",
-        description: "Building a modern, integrated digital platform for clinic management.",
+        description: "Building a modern, integrated digital platform for the clinic.",
         icon: "🏥"
       },
       {
-        title: "Patient Portal",
-        description: "Developing an intuitive patient portal for appointment booking and treatment tracking.",
+        title: "Patient Ease of Access",
+        description: "Developing an intuitive patient dashboard for appointment booking and treatment information.",
         icon: "👥"
+      }
+    ],
+    results: [
+      {
+        metric: "30%",
+        description: "Increase in online consultations"
+      },
+      {
+        metric: "75%",
+        description: "Reduction in administrative work"
+      },
+      {
+        metric: "90%",
+        description: "Patient satisfaction rate"
       }
     ],
     gallery: [
@@ -216,6 +230,7 @@ export const projects: Project[] = [
         deliverables: ["Core Platform", "AI Integration", "E-commerce System"]
       }
     ],
+    
 
 gallery: [
     {
